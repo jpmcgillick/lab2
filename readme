@@ -1,1 +1,2 @@
-Almost got it to work. Needs work with adding launcher.
+Fixed all launcher code to properly address issues of functions
+Properly created launcher in game.py

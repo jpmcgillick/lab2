@@ -3,6 +3,7 @@
 import pygame
 from pygame.locals import *
 import launcher
+import sys
 
 pygame.init()
 SURF = pygame.display.set_mode((500,400))
@@ -11,20 +12,22 @@ Green = (0,128,0)
 Sky_Blue = (135,206,235)
 FPS = 30
 fpsClock = pygame.time.Clock()
+my_launcher = launcher.Launcher(0,360)
 
 def main():
     while(True):
         draw_world(SURF)
+        my_launcher.draw(SURF)
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
-                   launcher.changeAngle(3)
+                   my_launcher.changeAngle(3)
                 if event.key == pygame.K_DOWN:
-                    launcher.changeAngle(-3)
+                    my_launcher.changeAngle(-3)
                 if event.key == pygame.K_LEFT:
-                    launcher.changeMagnitue(-5)
+                    my_launcher.changeMagnitude(-5)
                 if event.key == pygame.K_RIGHT:
-                    launcher.changeMagnitude(5)
+                    my_launcher.changeMagnitude(5)
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
