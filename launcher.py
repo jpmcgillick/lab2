@@ -28,6 +28,10 @@ class Launcher:
     else:
         self.magnitude = new_mag
 
+  def fire(self,rock):
+    rock.vx = self.magnitude*math.cos(self.angle*math.pi/180)
+    rock.vy = self.magnitude*math.sin(self.angle*math.pi/180)
+
   def changeAngle(self,delta):
     new_angle = self.angle + delta
     if new_angle >= max_angle:

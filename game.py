@@ -2,8 +2,10 @@
 
 import pygame
 from pygame.locals import *
-import launcher
 import sys
+
+import launcher
+import rock
 
 pygame.init()
 SURF = pygame.display.set_mode((500,400))
@@ -12,12 +14,14 @@ Green = (0,128,0)
 Sky_Blue = (135,206,235)
 FPS = 30
 fpsClock = pygame.time.Clock()
-my_launcher = launcher.Launcher(0,360)
+x = 0
+y = 380
+my_launcher = launcher.Launcher(x,y)
+my_rock = rock.Rock(x,y)
 
 def main():
     while(True):
-        draw_world(SURF)
-        my_launcher.draw(SURF)
+        #1. Pygame events
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
@@ -28,9 +32,18 @@ def main():
                     my_launcher.changeMagnitude(-5)
                 if event.key == pygame.K_RIGHT:
                     my_launcher.changeMagnitude(5)
+                if (event.key == pygame.K_SPACE) and (not my_rock.isMoving()):
+                    my_launcher.fire(my_rock)
+                    print("FIRE!")
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
+        #2. Game logic
+        my_rock.move(1.0/FPS)
+        #3. Draw everything
+        draw_world(SURF)
+        my_launcher.draw(SURF)
+        my_rock.draw(SURF)
         pygame.display.update()
         fpsClock.tick(FPS)
 
